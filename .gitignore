@@ -29,3 +29,6 @@ docs/walkthrough.md
 
 # Claude Code (configuración local)
 .claude/settings.local.json
+
+# Material privado (enunciado original y herramientas de exportación; no se versiona)
+docs/private/

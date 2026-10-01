@@ -6,7 +6,7 @@ namespace Wallet.UnitTests.Issuer;
 
 public class VerifiableCredentialTests
 {
-    // Canónico del enunciado (sección 4.1.2) sin la llave de cierre, más el proof de ejemplo.
+    // Canónico del enunciado (docs/enunciado-reescrito.md, sección 4.1.2) sin la llave de cierre, más el proof de ejemplo.
     private const string _enunciadoCanonicalWithoutClosingBrace =
         """
         {"credentialStatus":0,"credentialSubject":{"apellido":"Pérez","categoria":"adulto","dni":"30123456","foto":"https://cdn.futbol.com.ar/socios/8f14e45f.jpg","id":"did:example:3fa85f64-5717-4562-b3fc-2c963f66afa6","nombre":"Juan","numeroSocio":"000123"},"id":"https://credenciales.futbol.com.ar/8f14e45f-ceea-467e-9de1-93f5a5f4bfae","issuer":"did:example:futbol","type":["VerifiableCredential","SocioCredential"],"validFrom":"2026-08-09T14:32:10Z","validUntil":"2027-08-09T14:32:10Z"

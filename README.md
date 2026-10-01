@@ -137,3 +137,4 @@ Tampoco se implementan la verificación, la revocación ni la autenticación (fu
 
 - [Arquitectura](docs/architecture.md)
 - [Decisiones de arquitectura (ADRs)](docs/adr/)
+- Enunciado de la prueba (reescritura propia por confidencialidad): [Markdown](docs/enunciado-reescrito.md) · [PDF](docs/enunciado-reescrito.pdf)

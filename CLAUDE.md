@@ -3,7 +3,7 @@
 Contexto para retomar el trabajo en este repositorio.
 
 ## Qué es
-Prueba técnica: sistema que emite (UC01) y lista (UC02) credenciales verificables (VC) firmadas con HMAC-SHA256 para socios de un club de fútbol. El enunciado original está en `docs/enunciado.md` (si no está, pedírselo al usuario). Se evalúa: funcionalidad de punta a punta, diseño documentado, calidad de código y documentación de decisiones.
+Prueba técnica: sistema que emite (UC01) y lista (UC02) credenciales verificables (VC) firmadas con HMAC-SHA256 para socios de un club de fútbol. El enunciado está en `docs/enunciado-reescrito.md` (también en PDF): es una reescritura propia que conserva los requisitos y el ejemplo canónico; el original es confidencial y no se versiona. Se evalúa: funcionalidad de punta a punta, diseño documentado, calidad de código y documentación de decisiones.
 
 ## Modo de trabajo (importante)
 - **Iterativo:** Claude propone (una o varias alternativas, con recomendación), el usuario revisa y decide. No se avanza de paso ni se commitea sin su revisión.
