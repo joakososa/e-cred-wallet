@@ -4,6 +4,17 @@ Sistema de emisión y gestión de **credenciales digitales verificables** para l
 
 La arquitectura separa, a nivel de servicio, el rol de negocio (**Tenant**, el club) del rol de emisión (**Issuer**).
 
+## English summary
+
+E-Cred Wallet issues and lists verifiable credentials signed with HMAC-SHA256 for the members of a football club. It was built as a 48-hour technical assessment.
+
+- **Stack:** .NET 10 (ASP.NET Core, EF Core), PostgreSQL 17, Angular 22, Docker Compose.
+- **Highlights:** service-level separation between the business role (Tenant) and the issuing role (Issuer); canonical JSON covered by a golden test against the reference example; 17 ADRs; backend unit tests, integration tests with Testcontainers, and frontend tests.
+- **Run it:** copy `.env.example` to `.env`, set `Issuer__SigningKey` to a secret of at least 32 bytes, then run `docker compose up --build`.
+- **Process:** developed with AI assistance (Claude Code). Design, architecture and business decisions are mine and are recorded in the ADRs; repetitive layers were delegated and reviewed through contracts and tests.
+
+The rest of the documentation is in Spanish.
+
 ## Funcionalidades
 
 - **UC01 — Alta de credencial:** carga de los datos del socio (nombre, apellido, DNI, categoría, foto), emisión y firma por el Issuer, y persistencia de la credencial completa. Si la firma falla, no se persiste nada. Al confirmar, una pantalla de resultado muestra el número de socio y la vigencia.
@@ -132,6 +143,18 @@ Las decisiones relevantes están documentadas en [`docs/adr/`](docs/adr/) y el d
 Quedan fuera, por tiempo y documentado en el [ADR 016](docs/adr/016-contrato-http-y-decisiones-abiertas.md): upload de foto (la foto es una URL), *idempotency key*, *circuit breaker* para un Issuer remoto y paginación. **Limitación conocida:** el encoder JSON (`UnsafeRelaxedJsonEscaping`) no escapa tildes ni la ñ, pero sí escapa emojis y algunos espacios especiales (por ejemplo el NBSP). Lo firmado, lo persistido y lo devuelto usan el mismo encoder, así que el documento es consistente; solo se aparta de la letra del punto 5 de la canonicalización del enunciado para esos caracteres.
 
 Tampoco se implementan la verificación, la revocación ni la autenticación (fuera del alcance del enunciado).
+
+## Cómo se desarrolló
+
+Prueba técnica de 48 hs desarrollada con IA como asistente (Claude Code). Las decisiones de diseño, arquitectura y negocio son mías y están documentadas en los ADRs. Diseñé e implementé, junto con la IA, las capas que concentran la lógica de negocio (Tenant e Issuer). La API y los repositorios, más repetitivos y comunes a cualquier aplicación, los delegué y revisé a nivel de contratos y tests.
+
+- Claude propone alternativas con una recomendación y yo decido.
+- Cada decisión relevante va a un ADR. Los ADRs aceptados no se editan: si una decisión cambia, se emite uno nuevo que la reemplaza.
+- [`CLAUDE.md`](CLAUDE.md) funciona como contrato de trabajo: fija el modo de trabajo y las invariantes que no se pueden romper.
+- Commits chicos, con conventional commits.
+- Con el diseño cerrado, la implementación de Infrastructure y la API se hizo en una corrida autónoma, con las invariantes y el test golden como red de seguridad, y después la revisé.
+
+El criterio fue no delegar lo que define el negocio y delegar lo repetitivo, verificándolo contra contratos explícitos y tests.
 
 ## Documentación
 
