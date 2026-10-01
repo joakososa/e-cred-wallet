@@ -26,3 +26,6 @@ Thumbs.db
 # Notas personales (no se versionan)
 docs/aprendizaje.md
 docs/walkthrough.md
+
+# Claude Code (configuración local)
+.claude/settings.local.json
