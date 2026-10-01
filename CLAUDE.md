@@ -7,6 +7,7 @@ Prueba técnica: sistema que emite (UC01) y lista (UC02) credenciales verificabl
 
 ## Modo de trabajo (importante)
 - **Iterativo:** Claude propone (una o varias alternativas, con recomendación), el usuario revisa y decide. No se avanza de paso ni se commitea sin su revisión.
+- **Corrida autónoma (decisión de proceso):** con el diseño cerrado en ADRs y las invariantes fijadas (test golden incluido), la implementación de Infrastructure y la API se delegó en una corrida autónoma y después se revisó.
 - Las preguntas abiertas se dejan **en texto** con una recomendación, no en popups de opciones.
 - Explicar los conceptos desde cero cuando son de un dominio nuevo (credenciales verificables, canonicalización, etc.).
 - **Toda decisión relevante va a un ADR** en `docs/adr/` (usar `000-template.md`). **Los ADRs aceptados no se editan:** si una decisión cambia, se emite un ADR nuevo que la reemplaza, y en el anterior solo se actualiza el campo *Estado* ("Reemplazado por ADR XXX").
@@ -51,7 +52,7 @@ Prueba técnica: sistema que emite (UC01) y lista (UC02) credenciales verificabl
 | 017 | Infrastructure y Api: migraciones al arrancar, serialización de fechas y VC, validación, errores, falla simulada |
 
 ## Estado actual
-Pasos 0 a 8 implementados en la rama `wip/overnight` (trabajo nocturno autorizado sin revisión intermedia; **pendiente de revisión del usuario**):
+Pasos 0 a 8 completos y mergeados en `main`:
 - [x] 0. Docs iniciales
 - [x] 1. Bootstrap del backend
 - [x] 2. Issuer + tests
@@ -66,7 +67,9 @@ Verificado a mano: alta, socio existente, listado, estado vacío y falla de firm
 
 **Fuera de alcance (ADR 016):** upload de foto, idempotency key, circuit breaker, paginación.
 
-**Para el usuario:** leer el código del Tenant (`backend/src/Wallet.Tenant`) y los ADR 016 y 017. Los archivos `docs/walkthrough.md` y `docs/aprendizaje.md` son notas personales y están en el `.gitignore`.
+**Limitación conocida:** el encoder JSON (`UnsafeRelaxedJsonEscaping`) no escapa tildes ni la ñ, pero sí escapa emojis y algunos espacios especiales (por ejemplo el NBSP), así que para esos caracteres se aparta del punto 5 de la canonicalización del enunciado. Lo firmado, lo persistido y lo devuelto usan el mismo encoder, por lo que el documento es consistente. Documentada en el `README.md` (sección "Decisiones y alcance").
+
+Los archivos `docs/walkthrough.md` y `docs/aprendizaje.md` son notas personales y están en el `.gitignore`.
 
 ## Convenciones de tests
 - Nombres `Metodo_Escenario_Resultado` en español (por ejemplo `HandleAsync_SiFallaLaFirma_PropagaLaExcepcionYNoPersisteNada`). Todo test lleva las tres partes.
